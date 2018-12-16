@@ -5,4 +5,12 @@ h1 {
 body {
   text-align: center;
   margin: auto;
+  /* background-color: green; */
+  height: 100%;
+}
+
+html {
+  background-image: url('../client/utils/back.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
+import Navbar from './components/NavBarComponent/navbar';
+import { Provider } from 'react-redux'
+import store from "./store";
+import Login from './components/LoginComponent/login';
+import Register from './components/RegistrationComponent/registration';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Background from './utils/back.jpg'
+import Img from 'react-image'
 
 export default class App extends Component {
   state = { username: null };
@@ -14,10 +22,25 @@ export default class App extends Component {
   render() {
     const { username } = this.state;
     return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
+      <Provider store={store}>
+        <Router>
+          <div>
+            <Navbar/> 
+            <Switch>
+                <Route exact path="/" component={Login} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                
+                {/* <Switch> */}
+                  {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
+                  {/* <PrivateRoute exact path="/issuemap" component={IssuesMap} />
+                  <PrivateRoute exact path="/issues" component={Issues} />
+                  <PrivateRoute exact path="/addissue" component={AddIssue} />
+                </Switch> */}
+            </Switch>
+          </div>
+        </Router>
+      </Provider> 
     );
   }
 }
