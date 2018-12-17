@@ -22,7 +22,8 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200
+    width: 200,
+    color: "white"
   },
   dense: {
     marginTop: 19
@@ -36,6 +37,7 @@ const styles = theme => ({
     margin: "auto",
     display: "flex",
     justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,0.5)", 
   },
   error: {
     color: "#DE0230",
@@ -44,6 +46,9 @@ const styles = theme => ({
   button: {
     backgroundColor: "#505050",
   },
+  text: {
+    color: "white"
+  }
 });
 
 class Login extends Component {
@@ -102,7 +107,7 @@ class Login extends Component {
               justify="center"
               alignItems="center"
             >
-              <Typography>Sign In</Typography>
+              {/* <Typography className={classes.text}>Sign In</Typography> */}
 
               <TextField
                 id="email"
@@ -134,7 +139,7 @@ class Login extends Component {
                   {errors.passwordincorrect}
                 </span>
 
-              <Button color="primary" variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)}>Sign Up</Button>
+              <Button color="primary" variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)}>Sign In</Button>
             </Grid>
           </CardContent>
         </Card>        

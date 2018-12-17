@@ -7,6 +7,8 @@ import store from "./store";
 import Login from './components/LoginComponent/login';
 import Register from './components/RegistrationComponent/registration';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from '../client/components/PrivateRouteComponent/privateroute';
+import Home from "./components/HomeComponent/home";
 import Background from './utils/back.jpg'
 import Img from 'react-image'
 
@@ -31,12 +33,9 @@ export default class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 
-                {/* <Switch> */}
-                  {/* <PrivateRoute exact path="/dashboard" component={Dashboard} /> */}
-                  {/* <PrivateRoute exact path="/issuemap" component={IssuesMap} />
-                  <PrivateRoute exact path="/issues" component={Issues} />
-                  <PrivateRoute exact path="/addissue" component={AddIssue} />
-                </Switch> */}
+                <Switch>
+                  <PrivateRoute exact path="/home" component={Home} />
+                </Switch>
             </Switch>
           </div>
         </Router>
