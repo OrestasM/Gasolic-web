@@ -7,6 +7,29 @@ module.exports = function validateCarInput(data) {
   data.model = !isEmpty(data.model) ? data.model : "";
   data.year = !isEmpty(data.year) ? data.year : "";
   data.currentMileage = !isEmpty(data.currentMileage) ? data.currentMileage : "";
+  data.licensePlate = !isEmpty(data.licensePlate) ? data.licensePlate : "";
+
+
+
+if (!Validator.isAlphanumeric(data.make)) {
+    errors.make = "Car make must be alphanumeric";
+}
+
+if (!Validator.isInt(data.engine.toString())) {
+    errors.engine = "Car engine capacity must be numeric";
+}
+
+if (!Validator.isAlphanumeric(data.licensePlate.toString())) {
+    errors.licensePlate = "Car license plate must be alphanumeric";
+}
+
+if (!Validator.isInt(data.year.toString())) {
+    errors.year = "Car year must be numeric";
+}
+
+if (!Validator.isInt(data.currentMileage.toString())) {
+    errors.currentMileage = "Car current mileage must be numeric";
+}
 
 if (Validator.isEmpty(data.make)) {
     errors.make = "Car make field is required";
@@ -20,30 +43,13 @@ if (Validator.isEmpty(data.year.toString())) {
     errors.year = "Car year field is required";
 }
 
+if (Validator.isEmpty(data.licensePlate.toString())) {
+    errors.licensePlate = "Car license plate field is required";
+}
+
 if (Validator.isEmpty(data.currentMileage.toString())) {
     errors.currentMileage = "Car mileage field is required";
 }
-
-if (!Validator.isAlphanumeric(data.make)) {
-    errors.make = "Car make must be alphanumeric";
-}
-
-if (!Validator.isInt(data.engine.toString())) {
-    errors.engine = "Car engine must be numeric";
-}
-
-if (!Validator.isAlphanumeric(data.licensePlate)) {
-    errors.licensePlate = "Car license plate must be alphanumeric";
-}
-
-if (!Validator.isInt(data.year.toString())) {
-    errors.year = "Car year must be numeric";
-}
-
-if (!Validator.isInt(data.currentMileage.toString())) {
-    errors.currentMileage = "Car current mileage must be numeric";
-}
-
 
 return {
     errors,

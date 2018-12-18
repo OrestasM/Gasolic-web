@@ -32,10 +32,11 @@ export default class App extends Component {
                 <Route exact path="/" component={Login} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/home" component={Home} />
                 
-                <Switch>
+                {/* <Switch>
                   <PrivateRoute exact path="/home" component={Home} />
-                </Switch>
+                </Switch> */}
             </Switch>
           </div>
         </Router>

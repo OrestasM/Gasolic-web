@@ -2,10 +2,13 @@ body {
   text-align: center;
   margin: auto;
   height: 100%;
-}
-
-html {
   background-image: url('../client/utils/back.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+html {
+  /* background-image: url('../client/utils/back.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; */
 }

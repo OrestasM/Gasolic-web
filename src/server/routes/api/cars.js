@@ -1,17 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const keys = require("../../../config/keys_dev");
-const passport = require("passport");
 
-// Load input validation
-const validateCarInput = require("../../validation/add_car");
-// const validateRegisterInput = require("../../validation/register");
-// const validateLoginInput = require("../../validation/login");
-// Load User model
+const validateCarInput = require("../../validation/car");
+
 const Car = require("../../models/Car");
-
 
 router.post("/add", (req, res) => {
 
@@ -35,6 +27,18 @@ router.post("/add", (req, res) => {
         .save()
         .then(car => res.json(car))
         .catch(err => console.log(err));
+});
+
+router.get("/get/:id", (req, res) => {
+    Car.find({ owner: req.params.id }).then(cars => {
+        res.json(cars)
+    }).catch(err => console.log(err))
+});
+
+router.get("/get", (req, res) => {
+    Car.find({}).then(cars => {
+        res.json(cars)
+    }).catch(err => console.log(err))
 });
 
 
