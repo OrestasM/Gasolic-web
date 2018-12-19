@@ -7,12 +7,11 @@ const Car = require("../../models/Car");
 
 router.post("/add", (req, res) => {
 
-  const { errors, isValid } = validateCarInput(req.body);
-  
+  let { errors, isValid } = validateCarInput(req.body);
+
     if (!isValid) {
         return res.status(400).json(errors);
     }
-
   const newCar = new Car({
           make: req.body.make,
           model: req.body.model,
@@ -25,8 +24,11 @@ router.post("/add", (req, res) => {
 
     newCar
         .save()
-        .then(car => res.json(car))
+        .then(car => {
+            return res.status(200).json({});
+        })
         .catch(err => console.log(err));
+
 });
 
 router.get("/get/:id", (req, res) => {
