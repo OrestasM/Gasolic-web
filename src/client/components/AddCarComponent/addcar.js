@@ -93,28 +93,17 @@ class AddCar extends Component {
 
     componentWillMount() {
         this.setState({loading:true})
-        axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes")
+        axios.get("http://localhost:8080/api/car/makes")
             .then(response=>{
                 this.setState({model:{Models:[]}})
-                let make = response.data;
-                make = make.replace("?","");
-                make = make.replace("(","");
-                make = make.replace(")","")
-                make = make.replace(";","")
-                make = JSON.parse(make);
                 this.setState({
-                    make,
+                    make:response.data,
+                    loading: false
                 })
-                axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make=abarth")
+                axios.get("http://localhost:8080/api/car/models=abarth")
                     .then(response=>{
-                        let model = response.data;
-                        model = model.replace("?","");
-                        model = model.replace("(","");
-                        model = model.replace(")","")
-                        model = model.replace(";","")
-                        model = JSON.parse(model);
                         this.setState({
-                            model,
+                            model:response.data,
                             loading: false
                         })
                     })
@@ -127,17 +116,10 @@ class AddCar extends Component {
 
     handleMakeChange=(e)=>{
         this.setState({loading: true})
-        axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make="+e.target.value)
+        axios.get("http://localhost:8080/api/car/models="+e.target.value)
             .then(response=>{
-                this.setState({})
-                let model = response.data;
-                model = model.replace("?","");
-                model = model.replace("(","");
-                model = model.replace(")","")
-                model = model.replace(";","")
-                model = JSON.parse(model);
                 this.setState({
-                    model,
+                    model:response.data,
                     loading: false
                 })
                 

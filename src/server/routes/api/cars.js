@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const axios = require("axios");
 
 const validateCarInput = require("../../validation/car");
 
@@ -58,6 +59,35 @@ router.get("/get", (req, res) => {
     Car.find({}).then(cars => {
         res.json(cars)
     }).catch(err => console.log(err))
+});
+
+router.get("/makes", (req, res) => {
+    axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes")
+            .then(response=>{
+                let make = response.data;
+                make = make.replace("?","");
+                make = make.replace("(","");
+                make = make.replace(")","")
+                make = make.replace(";","")
+                make = JSON.parse(make);
+                res.send(make)
+                
+            })
+            .catch(err=>res.send(err))
+});
+
+router.get("/models=:make", (req, res) => {
+    axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make="+req.params.make)
+        .then(response=>{
+            let model = response.data;
+            model = model.replace("?","");
+            model = model.replace("(","");
+            model = model.replace(")","")
+            model = model.replace(";","")
+            model = JSON.parse(model);
+            res.send(model)
+        })
+        .catch(err=>res.send(err))
 });
 
 
