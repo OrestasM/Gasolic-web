@@ -9,7 +9,7 @@ module.exports = function validateCarInput(data) {
   data.currentMileage = !isEmpty(data.currentMileage) ? data.currentMileage : "";
   data.licensePlate = !isEmpty(data.licensePlate) ? data.licensePlate : "";
 
-if (!Validator.isInt(data.engine.toString())) {
+if (!Validator.isDecimal(data.engine.toString())) {
     errors.engine = "Car engine capacity must be numeric";
 }
 
