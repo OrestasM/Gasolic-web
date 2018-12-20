@@ -166,6 +166,16 @@ class Home extends Component {
                                                         variant="contained" 
                                                         className={classes.button} 
                                                         component={Link} 
+                                                        to={{ pathname: '/consumptions', state: { carId: item._id} }}
+                                                    >
+                                                        Car consumptions
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        className={classes.button} 
+                                                        component={Link} 
                                                         to={{ pathname: '/statistics', state: { carId: item._id} }}
                                                     >
                                                         View statistics
@@ -180,6 +190,7 @@ class Home extends Component {
                                                         Delete car
                                                     </Button>
                                                 </Grid>
+                                                
                                             </Grid>
                                         </Card>
                                         </Grid>

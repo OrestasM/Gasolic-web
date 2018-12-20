@@ -34,7 +34,8 @@ const styles = theme => ({
     textAlign: "center",
     margin: "auto",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,0.9)",
   },
   error: {
     color: "#DE0230",
@@ -42,6 +43,8 @@ const styles = theme => ({
   },
   button: {
     backgroundColor: "#505050",
+    marginTop:30,
+    color: "white"
   },
 });
 
@@ -146,7 +149,7 @@ class Register extends Component {
               />
               <span className={classes.error}>{errors.password2}</span>
 
-              <Button color="primary" variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)} >Sign Up</Button>
+              <Button variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)} >Sign Up</Button>
 
             </Grid>
           </CardContent>

@@ -5,12 +5,13 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from 'react-redux';
-import { addConsumption } from "../../actions/carActions";
+import { editConsumption } from "../../actions/carActions";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import classnames from "classnames";
 import Select from '@material-ui/core/Select';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
     container: {
@@ -75,34 +76,32 @@ const styles = theme => ({
           marginTop: 20,
       }
   });
-class AddConsumption extends Component {
+class EditConsumption extends Component {
     state = {
         errors:{},
-        mileage:"",
-        price:"",
-        fuelUsed:0,
-        trip:"",
-        price:0,
+        mileage:this.props.location.state.mileage,
+        price:this.props.location.state.price,
+        fuelUsed:this.props.location.state.fuelUsed,
+        trip:this.props.location.state.trip,
+        price:this.props.location.state.price,
      }
 
-    componentDidMount() {
-     
-    }
-
-    handleChange(e){
-        this.setState({[e.target.id]: e.target.value});
-    }
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
 
 
     onConfirm=()=> {
         let newConsumption = {
-            car:this.props.location.state.carId,
+            car:this.props.location.state.car,
             mileage:this.state.mileage,
             trip:this.state.trip,
             fuelUsed:this.state.fuelUsed,
             price:this.state.price,
         }
-        this.props.addConsumption(newConsumption, this.props.history);     
+        this.props.editConsumption(newConsumption, this.props.location.state._id, this.props.history);  
     }
 
     cancel=()=>{
@@ -123,21 +122,24 @@ class AddConsumption extends Component {
         return ( 
             <div>
                 <Card className={classes.card}>
+                    
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
                         style={{marginBottom: 30}}
-                    >
+                    >   
                         <div className={classes.addCar}>
+                        <Typography variant="headline">Edit consumption</Typography>
                         <TextField
                             margin="dense"
                             id="mileage"
                             label="Mileage"
                             type="mileage"
+                            value={this.state.mileage}
                             fullWidth
-                            onChange={this.handleChange.bind(this)} 
+                            onChange={this.handleChange("mileage")} 
                             className={classnames("", {
                                 invalid: errors.mileage
                                 })}
@@ -151,8 +153,9 @@ class AddConsumption extends Component {
                             id="trip"
                             label="Trip"
                             type="trip"
+                            value={this.state.trip}
                             fullWidth
-                            onChange={this.handleChange.bind(this)} 
+                            onChange={this.handleChange("trip")} 
                             className={classnames("", {
                                 invalid: errors.trip
                                 })}
@@ -167,7 +170,8 @@ class AddConsumption extends Component {
                                 label="Fuel used"
                                 id="fuelUsed"
                                 name="fuelUsed"
-                                onChange={this.handleChange.bind(this)}
+                                value={this.state.fuelUsed}
+                                onChange={this.handleChange("fuelUsed")}
                                 className={classnames(classes.margin, classes.textField, {
                                     invalid: errors.fuelUsed
                                 })}
@@ -187,7 +191,8 @@ class AddConsumption extends Component {
                                 label="Price per liter"
                                 id="price"
                                 name="price"
-                                onChange={this.handleChange.bind(this)} 
+                                value={this.state.price}
+                                onChange={this.handleChange("price")}
                                 className={classnames(classes.margin, classes.textField, {
                                     invalid: errors.price
                                 })}
@@ -223,7 +228,7 @@ class AddConsumption extends Component {
     }
 }
 
-AddConsumption.propTypes = {
+EditConsumption.propTypes = {
     classes: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -237,5 +242,5 @@ const mapStateToProps = state => ({
   
 export default withStyles(styles)(connect(
 mapStateToProps,
-{addConsumption}
-)(AddConsumption));
+{editConsumption}
+)(EditConsumption));

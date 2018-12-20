@@ -9,6 +9,9 @@ import { connect } from 'react-redux';
 import { addCar } from "../../actions/carActions";
 import {Line} from 'react-chartjs-2';
 import moment from 'moment';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 import {
     Link,
     withRouter
@@ -58,6 +61,11 @@ const styles = theme => ({
         color: "white",
         margin: 20,
       },
+      addButton: {
+        backgroundColor: "#505050",
+        color: "white",
+        margin: 20,
+    },
   });
 class Statistics extends Component {
     state = {
@@ -220,7 +228,16 @@ class Statistics extends Component {
                             </Card>
                         </div>
                         }
-                        
+                        <Grid item>
+                            <Fab 
+                                aria-label="Add" 
+                                className={classes.addButton} 
+                                component={Link} 
+                                to={{ pathname: '/addconsumptions', state: { carId: this.props.location.state.carId} }}
+                            >
+                                <AddIcon />
+                            </Fab>
+                        </Grid>  
                     </Grid>
                 </Card>
 

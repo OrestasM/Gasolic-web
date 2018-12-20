@@ -44,6 +44,8 @@ const styles = theme => ({
   },
   button: {
     backgroundColor: "#505050",
+    marginTop:30,
+    color: "white"
   },
   text: {
     color: "white"
@@ -106,7 +108,7 @@ class Login extends Component {
               justify="center"
               alignItems="center"
             >
-              <Typography className={classes.text}>Sign In</Typography>
+              <Typography>Sign In</Typography>
 
               <TextField
                 id="email"
@@ -138,7 +140,7 @@ class Login extends Component {
                   {errors.passwordincorrect}
                 </span>
 
-              <Button color="primary" variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)}>Sign In</Button>
+              <Button variant="contained" className={classes.button} onClick={(e)=> this.onSubmit(e)}>Sign In</Button>
             </Grid>
           </CardContent>
         </Card>        

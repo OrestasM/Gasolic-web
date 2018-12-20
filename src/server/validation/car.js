@@ -9,8 +9,6 @@ module.exports = function validateCarInput(data) {
   data.currentMileage = !isEmpty(data.currentMileage) ? data.currentMileage : "";
   data.licensePlate = !isEmpty(data.licensePlate) ? data.licensePlate : "";
 
-console.log(data)
-
 if (!Validator.isInt(data.engine.toString())) {
     errors.engine = "Car engine capacity must be numeric";
 }
@@ -46,8 +44,6 @@ if (Validator.isEmpty(data.licensePlate.toString())) {
 if (Validator.isEmpty(data.currentMileage.toString())) {
     errors.currentMileage = "Car mileage field is required";
 }
-
-console.log(errors)
 
 return {
     errors,

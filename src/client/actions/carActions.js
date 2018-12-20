@@ -43,3 +43,23 @@ export const addConsumption = (consumptionData, history) => dispatch => {
     })
 
 };
+
+export const editConsumption = (consumptionData, id, history) => dispatch => {
+
+  axios
+    .put("http://localhost:8080/api/consumptions/add/"+id, consumptionData)
+    .then(err => {
+      history.push("/home")
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    })
+
+};
