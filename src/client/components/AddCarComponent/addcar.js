@@ -91,7 +91,8 @@ class AddCar extends Component {
         test: false
      }
 
-    componentDidMount() {
+    componentWillMount() {
+        this.setState({loading:true})
         axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes")
             .then(response=>{
                 this.setState({model:{Models:[]}})
@@ -103,8 +104,6 @@ class AddCar extends Component {
                 make = JSON.parse(make);
                 this.setState({
                     make,
-                    loading: true
-                
                 })
                 axios.get("https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make=abarth")
                     .then(response=>{
@@ -147,6 +146,10 @@ class AddCar extends Component {
         
     }
 
+    cancel=()=>{
+        this.props.history.push("/home")
+    }
+
     onConfirm=()=> {
         let newCar = {
             make:this.state.selectedMake,
@@ -171,14 +174,16 @@ class AddCar extends Component {
     render() { 
         const { classes } = this.props;
         const { errors, test } = this.state;
-        return ( 
+        return (
+            
             <div>
-                <Card className={classes.card}>
+                    <Card className={classes.card}>
                     <Grid
                         container
                         direction="column"
                         justify="center"
                         alignItems="center"
+                        style={{marginBottom: 30}}
                     >
                             <div className={classes.addCar}>
                                 <div className={classes.select}>                 
@@ -200,9 +205,9 @@ class AddCar extends Component {
                                     <span className={classes.error}>
                                         {errors.make}
                                     </span>
-
+                                </div>
                                     {this.state.loading ?
-                                             <div>
+                                             <div className={classes.select}>
                                                 <Select
                                                         margin="dense"
                                                         native
@@ -223,7 +228,7 @@ class AddCar extends Component {
                                                 </span>
                                             </div> 
                                              :
-                                             <div>
+                                             <div className={classes.select}>
                                              <Select
                                                     margin="dense"
                                                     native
@@ -242,12 +247,7 @@ class AddCar extends Component {
                                                 {errors.model}
                                             </span>
                                             </div>
-                                        }
-                                </div>              
-                                 
-
-                                        
-                            
+                                        }            
                                  <TextField
                                     margin="dense"
                                     id="year"
@@ -299,8 +299,27 @@ class AddCar extends Component {
                                     onChange={this.handleChange.bind(this)} 
                                 />
                             </div>
-
-                            <Button variant="contained" color="primary" onClick={this.onConfirm}>Confirm</Button>
+                            
+                            {this.state.loading ? 
+                                null
+                                :
+                                <div>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justify="center"
+                                        alignItems="center"
+                                        spacing={16}
+                                    >
+                                        <Grid item>
+                                            <Button className={classes.button} variant="contained" onClick={this.cancel}>Cancel</Button>  
+                                        </Grid>
+                                        <Grid item>
+                                            <Button className={classes.button} variant="contained" onClick={this.onConfirm}>Confirm</Button>
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                            }           
                     </Grid>
                 </Card>
             </div>

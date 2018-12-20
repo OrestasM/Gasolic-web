@@ -9,6 +9,19 @@ module.exports = function validateConsumptionInput(data) {
   data.fuelUsed = !isEmpty(data.fuelUsed) ? data.fuelUsed : "";
   data.price = !isEmpty(data.price) ? data.price : "";
 
+if (!Validator.isInt(data.mileage.toString())) {
+    errors.mileage = "Car mileage must be numeric";
+}
+if (!Validator.isDecimal(data.price.toString())) {
+    errors.price = "Fuel price must be decimal";
+}
+if (!Validator.isDecimal(data.fuelUsed.toString())) {
+    errors.fuelUsed = "Fuel price must be decimal";
+}
+if (!Validator.isDecimal(data.trip.toString())) {
+    errors.trip = "Trip mileage must be decimal";
+}
+
 if (Validator.isEmpty(data.car)) {
     errors.car = "Car id field is required";
 }
@@ -23,20 +36,6 @@ if (Validator.isEmpty(data.fuelUsed.toString())) {
 }
 if (Validator.isEmpty(data.price.toString())) {
     errors.price = "Fuel price field is required";
-}
-
-
-if (!Validator.isInt(data.mileage.toString())) {
-    errors.mileage = "Car mileage must be numeric";
-}
-if (!Validator.isDecimal(data.price.toString())) {
-    errors.price = "Fuel price must be decimal";
-}
-if (!Validator.isDecimal(data.fuelUsed.toString())) {
-    errors.fuelUsed = "Fuel price must be decimal";
-}
-if (!Validator.isDecimal(data.trip.toString())) {
-    errors.trip = "Trip mileage must be decimal";
 }
 
 return {

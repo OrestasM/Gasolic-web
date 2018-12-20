@@ -16,23 +16,6 @@ import {
   } from 'react-router-dom'
 
 const styles = theme => ({
-    container: {
-      textAlign: "center",
-      margin: "auto",
-      opacity: "0.95",
-    },
-    textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: 200,
-      color: "white"
-    },
-    dense: {
-      marginTop: 19
-    },
-    menu: {
-      width: 200
-    },
     card: {
       maxWidth: 700,
       textAlign: "center",
@@ -40,13 +23,6 @@ const styles = theme => ({
       display: "flex",
       justifyContent: "center",
       backgroundColor: "rgba(150,150,150,0.6)", 
-    },
-    error: {
-      color: "#DE0230",
-      fontSize : 12
-    },
-    button: {
-      backgroundColor: "#505050",
     },
     text: {
       color: "rgba(220,220,220,1)",
@@ -57,19 +33,26 @@ const styles = theme => ({
         textAlign: "center",
         padding: 30,
         justifyContent: "center",
-        backgroundColor: "rgba(220,220,220,1)", 
+        backgroundColor: "rgba(220,220,220,1)",
+        margin: "auto",
         marginBottom: 30
     },
     licensePlate: {
         backgroundColor:"white",
         margin: "auto",
-        width: "20%"
+        width: "auto"
     },
     button: {
         backgroundColor: "#505050",
         color: "white",
         margin: 20,
+        width: 300
       },
+    addButton: {
+    backgroundColor: "#505050",
+    color: "white",
+    margin: 20,
+    },
   });
 class Home extends Component {
     state = {
@@ -83,24 +66,54 @@ class Home extends Component {
         make:{Makes:[]},
         model:{Models:[]},
         selectedMake:"Select make",
-        selectedModel:"Select model"
+        selectedModel:"Select model",
+        loading: false,
      }
 
     componentDidMount() {
-        if(this.props.auth.user.id!==undefined){
+        this.setState({loading:true})
             axios.get("http://localhost:8080/api/car/get/"+this.props.auth.user.id)
                 .then((response) => { 
                     this.setState({
-                        cars: response.data
+                        cars: response.data,
+                        loading: false
                     })
                 })
                 .catch(err => console.log(err))
-        }
         
+        
+    }
+
+    isEmpty =(obj)=> {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
     }
 
     handleChange(e){
         this.setState({[e.target.id]: e.target.value});
+    }
+
+    handleDelete=(id)=>{
+        
+        axios
+            .delete("http://localhost:8080/api/car/get/single/"+id)
+            .then(res=>{
+                axios
+                    .get("http://localhost:8080/api/car/get/"+this.props.auth.user.id)
+                    .then((response) => { 
+                        this.setState({
+                            cars: response.data,
+                        })
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err=>{
+                console.log(err)
+                this.setState({loading:false})
+            })
     }
 
     render() { 
@@ -115,34 +128,72 @@ class Home extends Component {
                         alignItems="center"
                     >
                         <Typography variant="headline" className={classes.text}>Your cars</Typography>
-                        {this.state.cars.map((item, index)=>{
-                            return(
-                                <Card className={classes.cardChild} key={index+5}>
-                                    <Typography variant="h4">{item.make}</Typography>
-                                    <Typography variant="h6">{item.model}</Typography>
-                                    <Typography variant="h6">{item.year}</Typography>
-                                    <Typography variant="h6" className={classes.licensePlate}>{item.licensePlate}</Typography>
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        justify="center"
-                                        alignItems="center"
-                                        spacing={16}
-                                    >
-                                        <Grid item>
-                                            <Button variant="contained" className={classes.button}>Add consumptions</Button>
+                        {!this.state.loading
+                        ?
+                            <Grid
+                                container
+                                direction="column"
+                                justify="center"
+                                alignItems="center"
+                            >
+                                {this.state.cars.map((item, index)=>{
+                                    return(
+                                        <Grid item key={index+5}>
+                                        <Card className={classes.cardChild}>
+                                            <Typography variant="h4">{item.make}</Typography>
+                                            <Typography variant="h6">{item.model}</Typography>
+                                            <Typography variant="h6">({item.year})</Typography>
+                                            <Typography variant="h6" className={classes.licensePlate}>{item.licensePlate}</Typography>
+                                            <Grid
+                                                container
+                                                direction="column"
+                                                justify="center"
+                                                alignItems="center"
+                                                spacing={0}
+                                            >
+                                                <Grid item>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        className={classes.button} 
+                                                        component={Link} 
+                                                        to={{ pathname: '/addconsumptions', state: { carId: item._id} }}
+                                                    >
+                                                        Add consumptions
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        className={classes.button} 
+                                                        component={Link} 
+                                                        to={{ pathname: '/statistics', state: { carId: item._id} }}
+                                                    >
+                                                        View statistics
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        className={classes.button} 
+                                                        onClick={()=>this.handleDelete(item._id)}
+                                                    >
+                                                        Delete car
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Card>
                                         </Grid>
-                                        <Grid item>
-                                            <Button variant="contained" className={classes.button}>View statistics</Button>
-                                        </Grid>
-                                    </Grid>
-                                </Card>
-                            )
-                        })}
+                                    )
+                                })}
+                            </Grid>
+                        :
+                            <Typography variant="headline" className={classes.text}>Loading</Typography>
+                        }
+                        
                         <Grid item>
                             <Fab 
                                 aria-label="Add" 
-                                className={classes.button} 
+                                className={classes.addButton} 
                                 onClick={this.handleClickOpen}
                                 component={Link}
                                 to="/addcar"

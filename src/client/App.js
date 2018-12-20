@@ -12,7 +12,8 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import AddCar from './components/AddCarComponent/addcar';
-
+import AddConsumption from './components/AddConsumption/addconsumption';
+import Statistics from './components/StatisticsComponent/statistics';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -58,6 +59,8 @@ export default class App extends Component {
                 <Switch>
                   <PrivateRoute exact path="/home" component={Home} />
                   <PrivateRoute exact path="/addcar" component={AddCar} />
+                  <PrivateRoute exact path="/addconsumptions" component={AddConsumption} />
+                  <PrivateRoute exact path="/statistics" component={Statistics} />
                 </Switch>
             </Switch>
           </div>
