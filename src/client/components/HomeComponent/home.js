@@ -29,12 +29,13 @@ const styles = theme => ({
       padding: 20
     },
     cardChild: {
-        width: "70%",
+        width: "auto",
         textAlign: "center",
         padding: 30,
         justifyContent: "center",
         backgroundColor: "rgba(220,220,220,1)",
-        margin: "auto",
+        marginLeft: "auto",
+        marginRight: "auto",
         marginBottom: 30
     },
     licensePlate: {
@@ -45,14 +46,20 @@ const styles = theme => ({
     button: {
         backgroundColor: "#505050",
         color: "white",
-        margin: 20,
-        width: 300
+        marginTop: 20,
+        width: "100%"
       },
     addButton: {
     backgroundColor: "#505050",
     color: "white",
     margin: 20,
     },
+    buttonWrapper: {
+        "width":"100%",
+        marginLeft: "auto",
+        marginRight: "auto",
+
+    }
   });
 class Home extends Component {
     state = {
@@ -151,7 +158,7 @@ class Home extends Component {
                                                 alignItems="center"
                                                 spacing={0}
                                             >
-                                                <Grid item>
+                                                <Grid item className={classes.buttonWrapper}>
                                                     <Button 
                                                         variant="contained" 
                                                         className={classes.button} 
@@ -161,7 +168,7 @@ class Home extends Component {
                                                         Add consumptions
                                                     </Button>
                                                 </Grid>
-                                                <Grid item>
+                                                <Grid item className={classes.buttonWrapper}>
                                                     <Button 
                                                         variant="contained" 
                                                         className={classes.button} 
@@ -171,7 +178,7 @@ class Home extends Component {
                                                         Car consumptions
                                                     </Button>
                                                 </Grid>
-                                                <Grid item>
+                                                <Grid item className={classes.buttonWrapper}>
                                                     <Button 
                                                         variant="contained" 
                                                         className={classes.button} 
@@ -181,7 +188,7 @@ class Home extends Component {
                                                         View statistics
                                                     </Button>
                                                 </Grid>
-                                                <Grid item>
+                                                <Grid item className={classes.buttonWrapper}>
                                                     <Button 
                                                         variant="contained" 
                                                         className={classes.button} 
