@@ -83,7 +83,7 @@ class AllConsumptions extends Component {
                         licensePlate: response.data[0].licensePlate,
                     })
                     axios
-                        .get(process.env.npm_package_config_api_config_api+ "/api/consumptions/get/"+this.props.location.state.carId)
+                        .get("/api/consumptions/get/"+this.props.location.state.carId)
                         .then((response) => { 
                             if(response.data.length===0){
                                 this.setState({
