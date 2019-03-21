@@ -12,7 +12,7 @@ const path = require("path");
 
 const app = express();
 var DIST_DIR = path.join(__dirname, "../../build");
-var PORT = 80;
+var PORT = 8080;
 
 app.use(cors());
 app.use(passport.initialize());
