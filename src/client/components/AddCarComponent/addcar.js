@@ -93,14 +93,14 @@ class AddCar extends Component {
 
     componentWillMount() {
         this.setState({loading:true})
-        axios.get("http://localhost:8080/api/car/makes")
+        axios.get("/api/car/makes")
             .then(response=>{
                 this.setState({model:{Models:[]}})
                 this.setState({
                     make:response.data,
                     loading: false
                 })
-                axios.get("http://localhost:8080/api/car/models=abarth")
+                axios.get("/api/car/models=abarth")
                     .then(response=>{
                         this.setState({
                             model:response.data,
@@ -116,7 +116,7 @@ class AddCar extends Component {
 
     handleMakeChange=(e)=>{
         this.setState({loading: true})
-        axios.get("http://localhost:8080/api/car/models="+e.target.value)
+        axios.get("/api/car/models="+e.target.value)
             .then(response=>{
                 this.setState({
                     model:response.data,

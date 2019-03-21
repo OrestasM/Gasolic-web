@@ -8,8 +8,11 @@ const users = require("./routes/api/users");
 const cars = require("./routes/api/cars")
 const consumptions = require("./routes/api/consumptions")
 const passport = require("passport");
+const path = require("path");
 
 const app = express();
+var DIST_DIR = path.join(__dirname, "../../build");
+var PORT = 80;
 
 app.use(cors());
 app.use(passport.initialize());
@@ -24,8 +27,13 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.use(express.static("dist"));
+app.use(express.static(DIST_DIR));
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(DIST_DIR, "index.html"));
+});
+
 app.get("/api/getUsername", (req, res) =>
   res.send({ username: os.userInfo().username })
 );
-app.listen(8080, () => console.log("Listening on port 8080!"));
+app.listen(PORT, () => console.log("Listening on port " + PORT + "!"));

@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputDirectory = 'dist';
+const outputDirectory = 'build';
 
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
@@ -35,10 +35,10 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 3000,
+    port: 80,
     open: true,
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'localhost'
     },
     historyApiFallback: true
   },

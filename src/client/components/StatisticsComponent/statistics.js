@@ -90,7 +90,7 @@ class Statistics extends Component {
     componentWillMount=()=> {
         this.setState({loading:true})
         axios
-            .get("http://localhost:8080/api/consumptions/get/"+this.props.location.state.carId)
+            .get("/api/consumptions/get/"+this.props.location.state.carId)
             .then(res => {
                 if(this.isEmpty(res.data)){
                     this.setState({noData:true})
@@ -106,7 +106,7 @@ class Statistics extends Component {
             })
 
         axios
-            .get("http://localhost:8080/api/car/get/single/"+this.props.location.state.carId)
+            .get("/api/car/get/single/"+this.props.location.state.carId)
             .then(res =>{
                 this.setState({
                     make:res.data[0].make,

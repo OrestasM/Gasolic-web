@@ -79,7 +79,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.setState({loading:true})
-            axios.get("http://localhost:8080/api/car/get/"+this.props.auth.user.id)
+            axios.get("/api/car/get/"+this.props.auth.user.id)
                 .then((response) => { 
                     this.setState({
                         cars: response.data,
@@ -106,10 +106,10 @@ class Home extends Component {
     handleDelete=(id)=>{
         
         axios
-            .delete("http://localhost:8080/api/car/get/single/"+id)
+            .delete("/api/car/get/single/"+id)
             .then(res=>{
                 axios
-                    .get("http://localhost:8080/api/car/get/"+this.props.auth.user.id)
+                    .get("/api/car/get/"+this.props.auth.user.id)
                     .then((response) => { 
                         this.setState({
                             cars: response.data,

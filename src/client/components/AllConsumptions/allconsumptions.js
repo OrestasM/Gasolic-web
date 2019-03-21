@@ -75,7 +75,7 @@ class AllConsumptions extends Component {
     componentDidMount() {
         this.setState({loading:true})
             axios
-                .get("http://localhost:8080/api/car/get/single/"+this.props.location.state.carId)
+                .get("/api/car/get/single/"+this.props.location.state.carId)
                 .then((response) => { 
                     this.setState({
                         make: response.data[0].make,
@@ -83,7 +83,7 @@ class AllConsumptions extends Component {
                         licensePlate: response.data[0].licensePlate,
                     })
                     axios
-                        .get("http://localhost:8080/api/consumptions/get/"+this.props.location.state.carId)
+                        .get(process.env.npm_package_config_api_config_api+ "/api/consumptions/get/"+this.props.location.state.carId)
                         .then((response) => { 
                             if(response.data.length===0){
                                 this.setState({
@@ -121,10 +121,10 @@ class AllConsumptions extends Component {
     handleDelete=(id)=>{
         
         axios
-            .delete("http://localhost:8080/api/consumptions/"+id)
+            .delete("/api/consumptions/"+id)
             .then(res=>{
                 axios
-                    .get("http://localhost:8080/api/consumptions/get/"+this.props.location.state.carId)
+                    .get("/api/consumptions/get/"+this.props.location.state.carId)
                     .then((response) => { 
                         if(response.data.length===0){
                             this.setState({

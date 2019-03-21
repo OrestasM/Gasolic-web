@@ -10,7 +10,7 @@ import {
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:8080/api/users/register", userData)
+    .post("/api/users/register", userData)
     .then(res => history.push("/")) // re-direct to login on successful register
     .catch(err =>
       dispatch({
@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
-    .post("http://localhost:8080/api/users/login", userData)
+    .post("/api/users/login", userData)
     .then(res => {
       // Save to localStorage
 // Set token to localStorage
@@ -53,7 +53,7 @@ export const setCurrentUser = decoded => {
 export const getCurrentUser = () => dispatch => {
   dispatch(setUserLoading());
   axios
-    .get("http://localhost:8080/api/users/currentuser")
+    .get("/api/users/currentuser")
     .then(function(res){
       dispatch({
         type: GET_CURRENT_USER,

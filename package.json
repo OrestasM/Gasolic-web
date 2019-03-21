@@ -10,6 +10,9 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "config":{
+    "api":""
+  },
   "author": "Orestas Mažeika",
   "license": "ISC",
   "dependencies": {

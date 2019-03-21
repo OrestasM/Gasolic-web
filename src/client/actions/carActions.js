@@ -6,7 +6,7 @@ import {
 export const addCar = (carData, history) => dispatch => {
 
   axios
-    .post("http://localhost:8080/api/car/add", carData)
+    .post("/api/car/add", carData)
     .then(err => {
       history.push("/home")
       dispatch({
@@ -27,7 +27,7 @@ export const addCar = (carData, history) => dispatch => {
 export const addConsumption = (consumptionData, history) => dispatch => {
 
   axios
-    .post("http://localhost:8080/api/consumptions/add", consumptionData)
+    .post("/api/consumptions/add", consumptionData)
     .then(err => {
       history.push("/home")
       dispatch({
@@ -47,7 +47,7 @@ export const addConsumption = (consumptionData, history) => dispatch => {
 export const editConsumption = (consumptionData, id, history) => dispatch => {
 
   axios
-    .put("http://localhost:8080/api/consumptions/add/"+id, consumptionData)
+    .put("/api/consumptions/add/"+id, consumptionData)
     .then(err => {
       history.push("/home")
       dispatch({
