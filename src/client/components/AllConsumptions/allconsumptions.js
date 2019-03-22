@@ -45,8 +45,9 @@ const styles = theme => ({
     button: {
         backgroundColor: "#505050",
         color: "white",
-        margin: 20,
-        width: 300
+        margin: "auto",
+        marginTop: 20,
+        width: "100%"
       },
     addButton: {
         backgroundColor: "#505050",
