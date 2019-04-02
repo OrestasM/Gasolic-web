@@ -16,6 +16,7 @@ import AddConsumption from './components/AddConsumption/addconsumption';
 import AllConsumptions from './components/AllConsumptions/allconsumptions';
 import EditConsumption from './components/EditConsumptionComponent/editconsumption';
 import Statistics from './components/StatisticsComponent/statistics';
+import Decoder from './components/DecoderComponent/decoder';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -55,6 +56,7 @@ export default class App extends Component {
                 <Route exact path="/" component={Login} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/ibusdecode" component={Decoder} />
                 
                 {/* <Route exact path="/home" component={Home} /> */}
                 
